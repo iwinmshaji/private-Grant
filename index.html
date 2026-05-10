@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,7 @@
 <title>Private Grant Reels</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -47,6 +47,7 @@ video{
 width:100%;
 height:100%;
 object-fit:contain;
+background:black;
 }
 
 .header{
@@ -64,13 +65,13 @@ background:linear-gradient(to bottom,rgba(0,0,0,.7),transparent);
 }
 
 .reels{
-font-size:24px;
+font-size:28px;
 font-weight:900;
 color:#272EF5;
 }
 
 .brand{
-font-size:15px;
+font-size:18px;
 font-weight:900;
 color:#F527CF;
 }
@@ -86,6 +87,7 @@ border-radius:999px;
 font-weight:800;
 cursor:pointer;
 z-index:100;
+background:white;
 }
 
 .topBtn{
@@ -114,6 +116,7 @@ background:rgba(0,0,0,.45);
 color:white;
 font-size:13px;
 }
+
 </style>
 </head>
 
@@ -137,33 +140,35 @@ Tap to start video + sound
 <script>
 
 const videos = [
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-28.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-32.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-41.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-54.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-59.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-07.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-12.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-20.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-27.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-32.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-37.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-41.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-58.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-02.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-08.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-14.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-22.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-26.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-33.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-38.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-43.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-54.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-56.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-00.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-05.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-12.mp4",
-"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-15.mp4"
+
+"video_2026-05-10_21-39-28.mp4",
+"video_2026-05-10_21-39-32.mp4",
+"video_2026-05-10_21-39-41.mp4",
+"video_2026-05-10_21-39-54.mp4",
+"video_2026-05-10_21-39-59.mp4",
+"video_2026-05-10_21-40-07.mp4",
+"video_2026-05-10_21-40-12.mp4",
+"video_2026-05-10_21-40-20.mp4",
+"video_2026-05-10_21-40-27.mp4",
+"video_2026-05-10_21-40-32.mp4",
+"video_2026-05-10_21-40-37.mp4",
+"video_2026-05-10_21-40-41.mp4",
+"video_2026-05-10_21-40-58.mp4",
+"video_2026-05-10_21-41-02.mp4",
+"video_2026-05-10_21-41-08.mp4",
+"video_2026-05-10_21-41-14.mp4",
+"video_2026-05-10_21-41-22.mp4",
+"video_2026-05-10_21-41-26.mp4",
+"video_2026-05-10_21-41-33.mp4",
+"video_2026-05-10_21-41-38.mp4",
+"video_2026-05-10_21-41-43.mp4",
+"video_2026-05-10_21-41-54.mp4",
+"video_2026-05-10_21-41-56.mp4",
+"video_2026-05-10_21-42-00.mp4",
+"video_2026-05-10_21-42-05.mp4",
+"video_2026-05-10_21-42-12.mp4",
+"video_2026-05-10_21-42-15.mp4"
+
 ];
 
 const feed = document.getElementById("feed");
@@ -178,7 +183,15 @@ const reel = document.createElement("div");
 reel.className = "reel";
 
 reel.innerHTML = `
-<video src="${src}" loop playsinline preload="auto"></video>
+<video 
+src="${src}" 
+loop 
+autoplay
+muted
+playsinline 
+preload="auto"
+></video>
+
 <div class="count">${index+1} / ${videos.length}</div>
 `;
 
@@ -189,19 +202,29 @@ feed.appendChild(reel);
 const allVideos = document.querySelectorAll("video");
 
 async function playVideo(video){
+
 try{
+
 video.muted = !soundEnabled;
 await video.play();
+
 }catch(e){}
+
 }
 
 function stopOthers(active){
+
 allVideos.forEach(v=>{
+
 if(v !== active){
+
 v.pause();
 v.currentTime = 0;
+
 }
+
 });
+
 }
 
 const observer = new IntersectionObserver((entries)=>{
@@ -211,10 +234,14 @@ entries.forEach(entry=>{
 const video = entry.target;
 
 if(entry.isIntersecting){
+
 stopOthers(video);
 playVideo(video);
+
 }else{
+
 video.pause();
+
 }
 
 });
@@ -231,9 +258,13 @@ soundEnabled = true;
 sound.style.display = "none";
 
 if(video.paused){
+
 await playVideo(video);
+
 }else{
+
 video.pause();
+
 }
 
 });
