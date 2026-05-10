@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Private Grant Reels</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+background:black;
+font-family:Arial,sans-serif;
+}
+
+.feed{
+height:100vh;
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+scrollbar-width:none;
+-ms-overflow-style:none;
+}
+
+.feed::-webkit-scrollbar{
+display:none;
+}
+
+.reel{
+height:100vh;
+scroll-snap-align:start;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+background:black;
+}
+
+video{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.header{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:60px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:12px;
+z-index:100;
+background:linear-gradient(to bottom,rgba(0,0,0,.7),transparent);
+}
+
+.reels{
+font-size:24px;
+font-weight:900;
+color:#272EF5;
+}
+
+.brand{
+font-size:15px;
+font-weight:900;
+color:#F527CF;
+}
+
+.sound{
+position:fixed;
+top:70px;
+left:50%;
+transform:translateX(-50%);
+padding:11px 20px;
+border:none;
+border-radius:999px;
+font-weight:800;
+cursor:pointer;
+z-index:100;
+}
+
+.topBtn{
+position:fixed;
+bottom:22px;
+left:50%;
+transform:translateX(-50%);
+padding:13px 24px;
+border:none;
+border-radius:999px;
+font-size:15px;
+font-weight:900;
+color:white;
+cursor:pointer;
+background:linear-gradient(to right,#272EF5 50%,#F527CF 50%);
+z-index:100;
+}
+
+.count{
+position:absolute;
+bottom:80px;
+left:15px;
+padding:7px 12px;
+border-radius:999px;
+background:rgba(0,0,0,.45);
+color:white;
+font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="reels">Reels</div>
+<div class="brand">Private Grant</div>
+</div>
+
+<button class="sound" id="sound">
+Tap to start video + sound
+</button>
+
+<button class="topBtn" id="topBtn">
+⬆ First Video
+</button>
+
+<div class="feed" id="feed"></div>
+
+<script>
+
+const videos = [
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-28.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-32.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-41.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-54.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-39-59.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-07.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-12.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-20.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-27.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-32.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-37.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-41.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-40-58.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-02.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-08.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-14.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-22.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-26.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-33.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-38.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-43.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-54.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-41-56.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-00.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-05.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-12.mp4",
+"file:///C:/Users/iwinm/Downloads/Telegram%20Desktop/video_2026-05-10_21-42-15.mp4"
+];
+
+const feed = document.getElementById("feed");
+const sound = document.getElementById("sound");
+const topBtn = document.getElementById("topBtn");
+
+let soundEnabled = false;
+
+videos.forEach((src,index)=>{
+
+const reel = document.createElement("div");
+reel.className = "reel";
+
+reel.innerHTML = `
+<video src="${src}" loop playsinline preload="auto"></video>
+<div class="count">${index+1} / ${videos.length}</div>
+`;
+
+feed.appendChild(reel);
+
+});
+
+const allVideos = document.querySelectorAll("video");
+
+async function playVideo(video){
+try{
+video.muted = !soundEnabled;
+await video.play();
+}catch(e){}
+}
+
+function stopOthers(active){
+allVideos.forEach(v=>{
+if(v !== active){
+v.pause();
+v.currentTime = 0;
+}
+});
+}
+
+const observer = new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+const video = entry.target;
+
+if(entry.isIntersecting){
+stopOthers(video);
+playVideo(video);
+}else{
+video.pause();
+}
+
+});
+
+},{threshold:0.65});
+
+allVideos.forEach(video=>{
+
+observer.observe(video);
+
+video.addEventListener("click", async()=>{
+
+soundEnabled = true;
+sound.style.display = "none";
+
+if(video.paused){
+await playVideo(video);
+}else{
+video.pause();
+}
+
+});
+
+});
+
+sound.addEventListener("click", async()=>{
+
+soundEnabled = true;
+sound.style.display = "none";
+
+await playVideo(allVideos[0]);
+
+});
+
+topBtn.addEventListener("click",()=>{
+
+feed.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+});
+
+</script>
+
+</body>
+</html>
